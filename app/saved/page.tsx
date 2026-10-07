@@ -118,7 +118,10 @@ function ConfirmRemove({
         >
           Remove from saved?
         </h2>
-        <p id="confirm-remove-body" className="mt-1.5 text-sm leading-6 text-zinc-500">
+        <p
+          id="confirm-remove-body"
+          className="mt-1.5 text-sm leading-6 text-zinc-500"
+        >
           {name} will be dropped from your shortlist. You can always find them
           again in search results.
         </p>
@@ -265,7 +268,10 @@ function SavedCard({
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <p className="flex items-center gap-1.5 truncate text-sm text-zinc-700">
-                <MapPin aria-hidden="true" className="h-4 w-4 shrink-0 text-zinc-400" />
+                <MapPin
+                  aria-hidden="true"
+                  className="h-4 w-4 shrink-0 text-zinc-400"
+                />
                 {c.location}
               </p>
               <p className="mt-0.5 truncate text-sm text-zinc-500">
@@ -278,11 +284,28 @@ function SavedCard({
                 aria-label={`${c.match}% match`}
                 className="relative flex h-10 w-10 items-center justify-center"
               >
-                <svg viewBox="0 0 36 36" className="absolute inset-0 h-full w-full -rotate-90">
-                  <circle cx="18" cy="18" r="15.5" fill="none" strokeWidth="3.5" className="stroke-zinc-100" />
+                <svg
+                  viewBox="0 0 36 36"
+                  className="absolute inset-0 h-full w-full -rotate-90"
+                >
                   <circle
-                    cx="18" cy="18" r="15.5" fill="none" strokeWidth="3.5" strokeLinecap="round"
-                    className={c.match >= 90 ? "stroke-blue-600" : "stroke-zinc-900"}
+                    cx="18"
+                    cy="18"
+                    r="15.5"
+                    fill="none"
+                    strokeWidth="3.5"
+                    className="stroke-zinc-100"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15.5"
+                    fill="none"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    className={
+                      c.match >= 90 ? "stroke-blue-600" : "stroke-zinc-900"
+                    }
                     strokeDasharray={`${2 * Math.PI * 15.5}`}
                     strokeDashoffset={2 * Math.PI * 15.5 * (1 - c.match / 100)}
                   />
@@ -302,12 +325,6 @@ function SavedCard({
             <p className="flex items-center gap-1.5 text-sm text-zinc-600">
               <Phone className="h-3.5 w-3.5 shrink-0 text-zinc-400" />
               <span className="truncate tabular-nums">{c.phone}</span>
-            </p>
-          )}
-          {c.email && (
-            <p className="flex items-center gap-1.5 text-sm text-zinc-600">
-              <EnvelopeSimple className="h-3.5 w-3.5 shrink-0 text-zinc-400" />
-              <span className="truncate">{c.email}</span>
             </p>
           )}
           {!c.phone && !c.email && (
@@ -354,8 +371,8 @@ function SavedCard({
                     kind={kind}
                     target={
                       kind === "call"
-                        ? c.phone ?? "No number on file"
-                        : c.email ?? "No email on file"
+                        ? (c.phone ?? "No number on file")
+                        : (c.email ?? "No email on file")
                     }
                     onPick={(purpose) => {
                       setMenu(null);
@@ -404,7 +421,7 @@ export default function SavedPage() {
         >
           <Sun weight="fill" className="h-5 w-5 text-zinc-900" />
           <span className="font-display text-[15px] font-semibold tracking-tight">
-            Sol
+            Trecis
           </span>
         </Link>
       </header>
@@ -414,17 +431,15 @@ export default function SavedPage() {
           <h1 className="font-display text-[22px] font-semibold tracking-[-0.02em]">
             Saved profiles
           </h1>
-          <p className="text-sm tabular-nums text-zinc-500">{profiles.length} saved</p>
+          <p className="text-sm tabular-nums text-zinc-500">
+            {profiles.length} saved
+          </p>
         </div>
 
         {profiles.length > 0 ? (
           <ul className="mt-6 grid gap-6 sm:grid-cols-2">
             {profiles.map((c) => (
-              <SavedCard
-                key={c.name}
-                candidate={c}
-                onRemove={setRemoving}
-              />
+              <SavedCard key={c.name} candidate={c} onRemove={setRemoving} />
             ))}
           </ul>
         ) : (

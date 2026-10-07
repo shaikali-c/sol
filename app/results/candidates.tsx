@@ -40,11 +40,46 @@ import {
 const STAGE_MS = 900;
 
 const STAGES: Stage[] = [
-  { label: "Working", Icon: Gear, animate: { rotate: 360, transition: { duration: 2.4, repeat: Infinity, ease: "linear" } } },
-  { label: "Searching", Icon: MagnifyingGlass, animate: { rotate: [-10, 10, -10], transition: { duration: 1.2, repeat: Infinity, ease: "easeInOut" } } },
-  { label: "Scraping", Icon: CloudArrowDown, animate: { y: [-3, 2, -3], transition: { duration: 1.1, repeat: Infinity, ease: "easeInOut" } } },
-  { label: "Matching", Icon: CheckCircle, animate: { scale: [1, 1.12, 1], transition: { duration: 1.3, repeat: Infinity, ease: "easeInOut" } } },
-  { label: "Ranked", Icon: Trophy, animate: { opacity: [1, 0.55, 1], transition: { duration: 1.6, repeat: Infinity, ease: "easeInOut" } } },
+  {
+    label: "Working",
+    Icon: Gear,
+    animate: {
+      rotate: 360,
+      transition: { duration: 2.4, repeat: Infinity, ease: "linear" },
+    },
+  },
+  {
+    label: "Searching",
+    Icon: MagnifyingGlass,
+    animate: {
+      rotate: [-10, 10, -10],
+      transition: { duration: 1.2, repeat: Infinity, ease: "easeInOut" },
+    },
+  },
+  {
+    label: "Scraping",
+    Icon: CloudArrowDown,
+    animate: {
+      y: [-3, 2, -3],
+      transition: { duration: 1.1, repeat: Infinity, ease: "easeInOut" },
+    },
+  },
+  {
+    label: "Matching",
+    Icon: CheckCircle,
+    animate: {
+      scale: [1, 1.12, 1],
+      transition: { duration: 1.3, repeat: Infinity, ease: "easeInOut" },
+    },
+  },
+  {
+    label: "Ranked",
+    Icon: Trophy,
+    animate: {
+      opacity: [1, 0.55, 1],
+      transition: { duration: 1.6, repeat: Infinity, ease: "easeInOut" },
+    },
+  },
 ];
 
 const LIST: Variants = {
@@ -99,7 +134,6 @@ function CandidateCard({
 }) {
   return (
     <motion.li variants={ITEM} className="h-full">
-
       <article className="flex h-full flex-col rounded-[20px] border border-zinc-200 bg-white p-5 transition-all hover:border-zinc-300 hover:shadow-[0_2px_6px_rgba(0,0,0,0.04)]">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -109,12 +143,19 @@ function CandidateCard({
             <p className="truncate text-sm text-zinc-500">{c.role}</p>
           </div>
           <button
-            aria-label={saved.includes(c.name) ? `Remove ${c.name} from saved` : `Save ${c.name}`}
+            aria-label={
+              saved.includes(c.name)
+                ? `Remove ${c.name} from saved`
+                : `Save ${c.name}`
+            }
             aria-pressed={saved.includes(c.name)}
             onClick={() => onToggleSave(c.name)}
             className={`shrink-0 rounded-full p-1 transition-all active:scale-90 focus-visible:outline-2 focus-visible:outline-blue-600 ${saved.includes(c.name) ? "text-blue-600" : "text-zinc-500 hover:text-zinc-700"}`}
           >
-            <BookmarkSimple weight={saved.includes(c.name) ? "fill" : "regular"} className="h-4 w-4" />
+            <BookmarkSimple
+              weight={saved.includes(c.name) ? "fill" : "regular"}
+              className="h-4 w-4"
+            />
           </button>
         </div>
 
@@ -140,15 +181,39 @@ function CandidateCard({
                 aria-label={`${c.match}% match`}
                 className="relative flex h-12 w-12 items-center justify-center"
               >
-                <svg viewBox="0 0 36 36" className="absolute inset-0 h-full w-full -rotate-90">
-                  <circle cx="18" cy="18" r="15.5" fill="none" strokeWidth="3" className="stroke-zinc-100" />
+                <svg
+                  viewBox="0 0 36 36"
+                  className="absolute inset-0 h-full w-full -rotate-90"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15.5"
+                    fill="none"
+                    strokeWidth="3"
+                    className="stroke-zinc-100"
+                  />
                   <motion.circle
-                    cx="18" cy="18" r="15.5" fill="none" strokeWidth="3" strokeLinecap="round"
-                    className={c.match >= 90 ? "stroke-blue-600" : "stroke-zinc-900"}
+                    cx="18"
+                    cy="18"
+                    r="15.5"
+                    fill="none"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    className={
+                      c.match >= 90 ? "stroke-blue-600" : "stroke-zinc-900"
+                    }
                     strokeDasharray={`${2 * Math.PI * 15.5}`}
                     initial={{ strokeDashoffset: 2 * Math.PI * 15.5 }}
-                    animate={{ strokeDashoffset: 2 * Math.PI * 15.5 * (1 - c.match / 100) }}
-                    transition={{ duration: 0.9, delay: 0.15 + index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                    animate={{
+                      strokeDashoffset:
+                        2 * Math.PI * 15.5 * (1 - c.match / 100),
+                    }}
+                    transition={{
+                      duration: 0.9,
+                      delay: 0.15 + index * 0.05,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
                   />
                 </svg>
                 <span className="text-[11px] font-semibold tabular-nums tracking-tight text-zinc-900">
@@ -180,7 +245,9 @@ function CandidateCard({
           </div>
         )}
 
-        <div className={`flex flex-wrap gap-1.5 ${terms.length > 0 ? "mt-3" : "mt-4"}`}>
+        <div
+          className={`flex flex-wrap gap-1.5 ${terms.length > 0 ? "mt-3" : "mt-4"}`}
+        >
           {c.skills.split(", ").map((skill) => (
             <span
               key={skill}
@@ -191,7 +258,7 @@ function CandidateCard({
           ))}
         </div>
       </article>
-      </motion.li>
+    </motion.li>
   );
 }
 
@@ -232,12 +299,17 @@ export default function Candidates({
   const returning = useSyncExternalStore(
     subscribeNothing,
     () => returningTo(query),
-    () => false
+    () => false,
   );
   const [done, setDone] = useState(false);
   const [stage, setStage] = useState(0);
   const [filter, setFilter] = useState<"all" | "top" | "good" | "other">("all");
-  const { results: hits, beforeRequirements } = matchScraped(query, exp, loc, notes);
+  const { results: hits, beforeRequirements } = matchScraped(
+    query,
+    exp,
+    loc,
+    notes,
+  );
   // the base fetch only stands in when the query matched nothing at all; if the
   // quiz answers ruled everything out, that is an honest empty result
   const showingBase = beforeRequirements === 0;
@@ -252,7 +324,7 @@ export default function Candidates({
           ? candidate.match >= 70 && candidate.match < 90
           : f === "other"
             ? candidate.match < 70
-            : true
+            : true,
     );
   const filtered = byFilter(filter);
   const TABS = [
@@ -277,7 +349,6 @@ export default function Candidates({
 
   return (
     <div className="relative min-h-[100dvh] overflow-x-clip bg-zinc-100 text-zinc-900">
-
       <header className="relative mx-auto flex h-14 w-full max-w-4xl items-center px-6">
         <Link
           href="/"
@@ -285,7 +356,7 @@ export default function Candidates({
         >
           <Sun weight="fill" className="h-5 w-5 text-zinc-900" />
           <span className="font-display text-[15px] font-semibold tracking-tight">
-            Sol
+            Trecis
           </span>
         </Link>
       </header>
@@ -347,7 +418,9 @@ export default function Candidates({
           </div>
         )}
 
-        {loading && <StageLoader stages={STAGES} stage={stage} totalMs={STAGE_MS} />}
+        {loading && (
+          <StageLoader stages={STAGES} stage={stage} totalMs={STAGE_MS} />
+        )}
 
         {!loading && (
           <MotionConfig reducedMotion="user">
@@ -365,18 +438,26 @@ export default function Candidates({
                     aria-selected={active}
                     onClick={() => setFilter(t.id)}
                     className={`relative isolate shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 ${
-                      active ? "text-white" : "text-zinc-500 hover:text-zinc-900"
+                      active
+                        ? "text-white"
+                        : "text-zinc-500 hover:text-zinc-900"
                     }`}
                   >
                     {active && (
                       <motion.span
                         layoutId="filter-thumb"
-                        transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 40,
+                        }}
                         className="absolute inset-0 -z-10 rounded-full bg-zinc-900"
                       />
                     )}
                     {t.label}
-                    <span className={`ml-1.5 text-[13px] tabular-nums ${active ? "text-zinc-400" : "text-zinc-500"}`}>
+                    <span
+                      className={`ml-1.5 text-[13px] tabular-nums ${active ? "text-zinc-400" : "text-zinc-500"}`}
+                    >
                       {t.count}
                     </span>
                   </button>

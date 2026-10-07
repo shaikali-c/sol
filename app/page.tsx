@@ -22,12 +22,11 @@ export default function Home() {
 
   return (
     <div className="relative min-h-[100dvh] overflow-x-clip bg-zinc-100 text-zinc-900">
-
       <header className="relative mx-auto flex h-14 w-full max-w-4xl items-center justify-between px-6">
         <span className="flex items-center gap-2.5">
           <Sun weight="fill" className="h-5 w-5 text-zinc-900" />
           <span className="font-display text-[15px] font-semibold tracking-tight">
-            Sol
+            Trecis
           </span>
         </span>
       </header>
@@ -38,7 +37,7 @@ export default function Home() {
             Who are you looking for?
           </h1>
           <p className="mt-5 max-w-[46ch] text-lg leading-8 text-zinc-500">
-            Describe the hire in plain words. Sol ranks candidates by match,
+            Describe the hire in plain words. Trecis ranks candidates by match,
             from 0 to 100%.
           </p>
 
