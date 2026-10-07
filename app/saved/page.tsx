@@ -13,7 +13,7 @@ import {
   Trash,
 } from "@phosphor-icons/react";
 import {
-  CANDIDATES,
+  ALL_CANDIDATES,
   getSaved,
   getSavedServer,
   subscribeSaved,
@@ -44,9 +44,11 @@ const PURPOSES = {
 
 function ContactMenu({
   kind,
+  target,
   onPick,
 }: {
   kind: "call" | "email";
+  target: string;
   onPick: (purpose: string) => void;
 }) {
   return (
@@ -55,6 +57,9 @@ function ContactMenu({
       aria-label={kind === "call" ? "Call purpose" : "Email purpose"}
       className="absolute bottom-full left-0 z-30 mb-2 w-60 overflow-hidden rounded-[20px] border border-zinc-200 bg-white p-1 shadow-[0_8px_28px_rgba(0,0,0,0.10)]"
     >
+      <p className="truncate px-3 pb-1.5 pt-1.5 text-[12px] text-zinc-500">
+        {target}
+      </p>
       {PURPOSES[kind].map((purpose) => (
         <button
           key={purpose}
@@ -292,6 +297,24 @@ function SavedCard({
           </div>
         </div>
 
+        <div className="mt-3 space-y-1">
+          {c.phone && (
+            <p className="flex items-center gap-1.5 text-sm text-zinc-600">
+              <Phone className="h-3.5 w-3.5 shrink-0 text-zinc-400" />
+              <span className="truncate tabular-nums">{c.phone}</span>
+            </p>
+          )}
+          {c.email && (
+            <p className="flex items-center gap-1.5 text-sm text-zinc-600">
+              <EnvelopeSimple className="h-3.5 w-3.5 shrink-0 text-zinc-400" />
+              <span className="truncate">{c.email}</span>
+            </p>
+          )}
+          {!c.phone && !c.email && (
+            <p className="text-sm text-zinc-500">Contact details on request</p>
+          )}
+        </div>
+
         <div className="mt-3 flex flex-wrap gap-1.5">
           {c.skills.split(", ").map((skill) => (
             <span
@@ -329,6 +352,11 @@ function SavedCard({
                 {open && (
                   <ContactMenu
                     kind={kind}
+                    target={
+                      kind === "call"
+                        ? c.phone ?? "No number on file"
+                        : c.email ?? "No email on file"
+                    }
                     onPick={(purpose) => {
                       setMenu(null);
                       if (purpose === "Custom message") setCustomOpen(true);
@@ -365,10 +393,10 @@ function SavedCard({
 export default function SavedPage() {
   const saved = useSyncExternalStore(subscribeSaved, getSaved, getSavedServer);
   const [removing, setRemoving] = useState<string | null>(null);
-  const profiles = CANDIDATES.filter((c) => saved.includes(c.name));
+  const profiles = ALL_CANDIDATES.filter((c) => saved.includes(c.name));
 
   return (
-    <div className="relative min-h-full overflow-x-clip bg-white text-zinc-900">
+    <div className="relative min-h-[100dvh] overflow-x-clip bg-zinc-100 text-zinc-900">
       <header className="relative mx-auto flex h-14 w-full max-w-4xl items-center px-6">
         <Link
           href="/"

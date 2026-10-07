@@ -21,7 +21,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-full overflow-x-clip bg-white text-zinc-900">
+    <div className="relative min-h-[100dvh] overflow-x-clip bg-zinc-100 text-zinc-900">
 
       <header className="relative mx-auto flex h-14 w-full max-w-4xl items-center justify-between px-6">
         <span className="flex items-center gap-2.5">
