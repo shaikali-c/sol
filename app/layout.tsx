@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import "./globals.css";
+import Dock from "./dock";
 
 const display = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -14,7 +15,7 @@ const sans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sol — Search, refined",
+  title: "Sol, search refined",
   description: "Search in plain words. A few questions, then results.",
 };
 
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${display.variable} ${sans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">{children}<Dock /></body>
     </html>
   );
 }
